@@ -17,12 +17,12 @@ Tugas Akhir Durable K Nearest Neighbor Query Using Grid Index
  1. Tempatkan berkas `Grid.py`, `Precompute_Main.py`, dan `Compute.py` di direktori yang sama dengan dataset yang akan digunakan.
  2. Jalankan proses ***Data Precomputing*** terlebih dahulu dengan mengeksekusi program `Precompute_Main.py` menggunakan command`python Precompute_Main.py`.
  3. Masukkan besar grid yang akan dibangun.
- 4. Pilih dataset yang tersedia (IND, ANT, FC).\
+ 4. Pilih dataset yang tersedia (IND, ANT, FC).\\
  ![Dataset yang tersedia](https://raw.githubusercontent.com/Armunz/TA_Durable_KNN_Query/main/images/dataset%20yang%20tersedia.PNG)
  
  
  
- 5. Pilih berkas dataset yang tersedia.\
+ 5. Pilih berkas dataset yang tersedia.\\
  ![enter image description here](https://raw.githubusercontent.com/Armunz/TA_Durable_KNN_Query/main/images/berkas%20yang%20tersedia.PNG)
  
  
@@ -35,11 +35,11 @@ Tugas Akhir Durable K Nearest Neighbor Query Using Grid Index
 		 - Timestamp awal (*tb*)\
 		 - Timestamp akhir (*tc*)\
 		 - *Durability Threshold*\
-Disini saya menggunakan dataset `random_50000_2d_ind.csv` dan berikut adalah contoh kueri masukannya.\
+Disini saya menggunakan dataset `random_50000_2d_ind.csv` dan berikut adalah contoh kueri masukannya.\\
 ![Contoh kueri masukan](https://raw.githubusercontent.com/Armunz/TA_Durable_KNN_Query/main/images/contoh%20masukan%20query%20processing.PNG)
 
  
- 9. Hasil kueri adalah sebagai berikut.\
+ 9. Hasil kueri adalah sebagai berikut.\\
  ![Contoh hasil kueri](https://raw.githubusercontent.com/Armunz/TA_Durable_KNN_Query/main/images/contoh%20hasil%20query%20processing.PNG)
  
  
