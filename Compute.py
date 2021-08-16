@@ -360,5 +360,7 @@ if __name__ == "__main__":
     r = input("Masukkan Durability Threshold (0 - 100): ")
     print("Loading...")
     result = dknnQuery(sref, int(k), int(tb), int(tc), int(r))
-    print("Objek Hasil (RS): ", result)
+    # print("Objek Hasil (RS): ", result)
+    for object in result:
+        print("{} - Jarak: {}" .format(object['id'], object['distance']))
     print("Jumlah Objek Hasil (RS): ", len(result))
