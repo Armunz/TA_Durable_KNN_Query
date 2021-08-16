@@ -39,7 +39,8 @@ Disini saya menggunakan dataset `random_50000_2d_ind.csv` dan berikut adalah con
 ![Contoh kueri masukan](https://raw.githubusercontent.com/Armunz/TA_Durable_KNN_Query/main/images/contoh%20masukan%20query%20processing.PNG)
 
  
- 9. Hasil kueri adalah sebagai berikut.\ ![Contoh hasil kueri](https://raw.githubusercontent.com/Armunz/TA_Durable_KNN_Query/main/images/contoh%20hasil%20query%20processing.PNG)
+ 9. Hasil kueri adalah sebagai berikut.\
+ ![Contoh hasil kueri](https://raw.githubusercontent.com/Armunz/TA_Durable_KNN_Query/main/images/contoh%20hasil%20query%20processing.PNG)
  
  
  10. Selesai.
