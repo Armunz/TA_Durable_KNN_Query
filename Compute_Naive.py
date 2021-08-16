@@ -3,8 +3,6 @@ from Grid import *
 import pickle
 from threading import Thread, Lock
 import copy
-import time
-import tracemalloc
 
 def checkObjectValidity(object_id, tb, tc):
     if object_id not in object_timestamp_and_grid_pos.keys():
@@ -89,9 +87,6 @@ def getKNNCandidates(sref_id, valid_sref, k, timestamp, radius):
     sref_position = getObjectPosition(valid_sref, timestamp)
     list_data = grid.getListData(sref_position)
     
-    # for key in list_data.keys():
-    #     if key == sref_id:
-    #         object_sref = list_data[key]
     if sref_id in list_data:
         object_sref = list_data[sref_id]
 
@@ -113,12 +108,10 @@ def getKNNCandidates(sref_id, valid_sref, k, timestamp, radius):
         previous_neighbor = []
         previous_neighbor.append(sref_position)
         level = 1
-        # print("Grid Size: ", grid.grid_size)
+        
         while(level < grid.grid_size):
             neighbor_list = grid.getNeighborList(sref_position, level, previous_neighbor)
-            # print("Neighbor List level {}: {}" .format(level, neighbor_list))
             if len(neighbor_list) == 0:
-                # print("Masuk sini?")
                 break
 
             previous_neighbor.extend(neighbor_list)
@@ -139,10 +132,6 @@ def getKNNCandidates(sref_id, valid_sref, k, timestamp, radius):
             
             candidates.extend(new_candidates) 
 
-            # print("Candidates level {}: {}" .format(level, candidates))
-            # print("Not eligible level {}: {}" .format(level, new_not_eligible))
-            # print("Future Candidates level {}: {}" .format(level, future_candidates))
-
             if len(candidates) < k:
                 
                 if len(not_eligible_object) != 0:
@@ -157,7 +146,6 @@ def getKNNCandidates(sref_id, valid_sref, k, timestamp, radius):
                 not_eligible_object.extend(new_not_eligible)
                 
                 if len(candidates) >= k:
-                    # print("Apakah Masuk sini?")
                     not_eligible_object.clear()
                     break
 
@@ -240,7 +228,6 @@ def dknnQuery(sref, k, tb, tc, r):
         t = tb
 
         while(t < tc):
-            # print("Iterasi While: ", t)
             t_next = t + 1
 
             sref_current_timestamp = getCurrentTimestamp(valid_sref, t)
@@ -260,14 +247,10 @@ def dknnQuery(sref, k, tb, tc, r):
                     continue
                 else:
                     break
-            # print("Candidates at timestamp {}: {}" .format(t, knn_candidates))
-            # Get KNN List
+
             knn_list = getKNNList(k, knn_candidates)
-            # print("KNN ketika timestamp {}: {}" .format(t, knn_list))
-            # Append to CS
             addToCS(CS, knn_list)
-            # print("CS ketika timestamp {}: {}" .format(t, CS))
-            
+
             # Move CS to RS
             RS_id = getListId(RS)
             for object in CS:
@@ -278,8 +261,6 @@ def dknnQuery(sref, k, tb, tc, r):
                         RS.append(object)
                 
             CS = [x for x in CS if x not in RS]
-            # print("CS After move to RS: ", CS)
-            # print("RS: ", RS)
 
             # Jika object di CS tidak mungkin menjadi hasil
             if t > tc - delta_min:
@@ -289,19 +270,14 @@ def dknnQuery(sref, k, tb, tc, r):
                         cs_id.append(object['id'])
                 
                 CS = [x for x in CS if x['id'] not in cs_id]
-                # print("CS Now: ", CS)
                 if len(CS) == 0:
                     break
-  
             t = t_next
-
         return RS
     else:
         return "Error - Objek '{}' belum ada/telah hilang pada timestamp tersebut" .format(sref)
 
 if __name__ == "__main__":
-    # start = time.time()
-    tracemalloc.start()
     grid = GridIndex
     object_timestamp_and_grid_pos = {}
 
@@ -314,13 +290,14 @@ if __name__ == "__main__":
     with open(object_file_name, 'rb') as file:
         object_timestamp_and_grid_pos = pickle.load(file)
 
-    # print(len(object_timestamp_and_grid_pos))
-    result = dknnQuery('qdevyurm', 50, 618, 718, 70)
-    # print("RS: ", result)
-    # print("RS Length: ", len(result))
-    # for object in result:
-    #     print(object['id'])
-    # print("--- Execution Time: %s seconds ---" % (time.time() - start))
-    current, peak = tracemalloc.get_traced_memory()
-    print(f"Current memory usage is {current / 10**6} MB; Peak was {peak / 10**6} MB")
-    tracemalloc.stop()
+    print("Durable K-NN Query Using Grid Index")
+    print("Parameter: Objek Referensi (sref), Jumlah Objek yang Dicari (k), Interval Waktu Awal (tb), Interval Waktu Akhir (tc), Durability Threshold (r)\n")
+    sref = input("Masukkan Objek Referensi (sref): ")
+    k = input("Masukkan Jumlah Objek yang Ingin Dicari (k): ")
+    tb = input("Masukkan Interval Waktu Awal (tb): ")
+    tc = input("Masukkan Interval Waktu Akhir (tc): ")
+    r = input("Masukkan Durability Threshold (0 - 100): ")
+    print("Loading...")
+    result = dknnQuery(sref, int(k), int(tb), int(tc), int(r))
+    print("Objek Hasil (RS): ", result)
+    print("Jumlah Objek Hasil (RS): ", len(result))

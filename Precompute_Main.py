@@ -1,3 +1,6 @@
+"""
+DATA PRECOMPUTING
+"""
 import csv
 import pickle
 from Grid import *
